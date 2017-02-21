@@ -1,0 +1,32 @@
+{
+    "name": "download-osm-buildings",
+    "description": "A GBDX task that downloads OSM building footprints using the Overpass API.",
+    "properties": {
+        "isPublic": true,
+        "timeout": 7200
+    },
+    "version": "0.0.1",
+    "inputPortDescriptors": [
+        {
+            "name": "bbox",
+            "type": "string",
+            "description": "Bounding box in W, S, E, N.",
+            "required": true
+        }    ],
+    "outputPortDescriptors": [
+        {
+            "name": "geojson",
+            "type": "directory",
+            "description": "Contains buildings.geojson."
+        }
+    ],
+    "containerDescriptors": [
+        {
+            "type": "DOCKER",
+            "properties": {
+                "image": "platformstories/download-osm-buildings"
+            },
+            "command": "python /download-osm-buildings.py"
+        }
+    ]
+}
