@@ -13,6 +13,8 @@ import gbdxtools
 from os.path import join
 import uuid
 
+gbdx = gbdxtools.Interface()
+
 dob = gbdx.Task('download-osm-buildings')
 
 # Specify bounding box in W, S, E, N
