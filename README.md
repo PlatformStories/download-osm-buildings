@@ -103,3 +103,6 @@ import gbdxtools
 gbdx = gbdxtools.Interface()
 gbdx.task_registry.register(json_filename='download-osm-buildings.json')
 ```
+
+Note: If you change the task image, you need to reregister the task with a higher version number
+in order for the new image to take effect.
