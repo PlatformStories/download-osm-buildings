@@ -88,7 +88,6 @@ docker login
 Tag your image using your username and push it to DockerHub:
 
 ```bash
-docker login
 docker tag download-osm-buildings yourusername/download-osm-buildings
 docker push yourusername/download-osm-buildings
 ```
