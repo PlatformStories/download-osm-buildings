@@ -34,6 +34,7 @@ wf.execute()
 |-------|--------------|----------------|----------------|
 | bbox | String | Bounding box in W, S, E, N. | True |
 
+
 ## Output ports
 
 | Name  | Type | Description                                    |
@@ -57,23 +58,15 @@ Then:
 
 ```bash
 cd download-osm-buildings
-docker build -t yourusername/download-osm-buildings .
+docker build -t download-osm-buildings .
 ```
-
-Then push the image to Docker Hub:
-
-```bash
-docker push yourusername/download-osm-buildings
-```
-
-The image name should be the same as the image name under containerDescriptors in download-osm-buildings.json.
 
 ### Try out locally
 
 Create a container in interactive mode and mount the sample input under `/mnt/work/input/`:
 
 ```bash
-docker run -v full/path/to/sample-input:/mnt/work/input -it yourusername/download-osm-buildings
+docker run -v full/path/to/sample-input:/mnt/work/input -it download-osm-buildings
 ```
 
 Then, within the container:
@@ -82,19 +75,28 @@ Then, within the container:
 python /download-osm-buildings.py
 ```
 
-Confirm that the results are in the output directory:
+Confirm that the tileset is present in your account.
+
+### Docker Hub
+
+Login to Docker Hub:
 
 ```bash
-ls mnt/work/output/geojson
+docker login
 ```
 
-You can exit the container with `ctrl-p, ctrl-q`, copy the results locally with
+Tag your image using your username and push it to DockerHub:
 
 ```bash
-docker cp <containerid>:/mnt/work/output/geojson/buildings.geojson buildings.geojson
+docker login
+docker tag download-osm-buildings yourusername/download-osm-buildings
+docker push yourusername/download-osm-buildings
 ```
 
-and then upload them to [geojson.io](geojson.io) for a preview.
+The image name should be the same as the image name under containerDescriptors in download-osm-buildings.json.
+
+Alternatively, you can link this repository to a [Docker automated build](https://docs.docker.com/docker-hub/builds/).
+Every time you push a change to the repository, the Docker image gets automatically updated.
 
 ### Register on GBDX
 
@@ -107,4 +109,4 @@ gbdx.task_registry.register(json_filename='download-osm-buildings.json')
 ```
 
 Note: If you change the task image, you need to reregister the task with a higher version number
-in order for the new image to take effect.
+in order for the new image to take effect. Keep this in mind especially if you use Docker automated build.
